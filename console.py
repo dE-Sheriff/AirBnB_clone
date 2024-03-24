@@ -3,7 +3,7 @@
 import cmd
 import sys
 
-class SBNBcommand(cmd.Cmd):
+class HBNBCommand(cmd.Cmd):
     """ """
     promt = "(sbnb)"
     
@@ -22,5 +22,5 @@ class SBNBcommand(cmd.Cmd):
         """ """
         pass
 
-if __name__ == "__maina__":
-    SBNBcommand().cmdloop()
+if __name__ == '__main__':
+    HBNBCommand().cmdloop()
