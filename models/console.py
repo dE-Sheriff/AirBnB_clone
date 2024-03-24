@@ -9,15 +9,18 @@ class SBNBcommand(cmd.Cmd):
     
     def do_EOF(self, *args):
         """ """
+        pass
         
     def do_quit(self, line):
         """ """
+        pass
 
     def do_create(self, line):
         """ """
-    
+        pass
     def do_destroy(self, line):
         """ """
-        
+        pass
+
 if __name__ == "__maina__":
     SBNBcommand().cmdloop()
