@@ -25,9 +25,28 @@ class FileStorage():
         FileStorage.__objects[key] = obj
     
     def reload(self):
-        if FileStorage.__file_path is None:
+        if not os.path.isfile(FileStorage.__file_path):
             return
         with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
             obj_dic = json.load(f)
             obj_dic = {k: self.classes()[v["__class__"]](**v)
                        for k, v in obj_dic.items()}
+    
+    def classes(self):
+        """A dictionary of valid classes and their references"""
+        from models.base_model import BaseModel
+        from models.user import User
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.place import Place
+        from models.review import Review
+
+        classes = {"BaseModel": BaseModel,
+                   "User": User,
+                   "State": State,
+                   "City": City,
+                   "Amenity": Amenity,
+                   "Place": Place,
+                   "Review": Review}
+        return classes
