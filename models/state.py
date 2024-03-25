@@ -1,6 +1,8 @@
  #!/usr/bin/python3
-from base_model import BaseModel
+""" A state class """
 
-class Sate(BaseModel):
-    """ """
+from models.base_model import BaseModel
+
+class State(BaseModel):
+    """ Managing state class attributes """
     name = ""
