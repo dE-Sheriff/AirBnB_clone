@@ -1,6 +1,9 @@
 #!/usr/bin/python3
+"""Implementing aAttributes for user class"""
+
 
 from models.base_model import BaseModel
+
 
 class User(BaseModel):
     """Class instance for User"""
@@ -8,7 +11,7 @@ class User(BaseModel):
     last_name = ""
     email = ""
     password = ""
-    
+
     def __init__(self, *args, **kwargs):
         """Initializes User"""
         self.email = ""

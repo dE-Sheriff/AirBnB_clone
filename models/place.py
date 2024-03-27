@@ -1,5 +1,8 @@
 #!/usr/bin/python3
+"""Implementing the Place class Attribute"""
+
 from models.base_model import BaseModel
+
 
 class Place(BaseModel):
     """ """
