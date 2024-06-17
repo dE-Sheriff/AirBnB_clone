@@ -6,13 +6,23 @@ import cmd
 import sys
 import json
 import re
+import shlex
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
+from models.state import State
+
+classes = {'BaseModel': BaseModel, 'User': User, 'City': City, 'Place': Place,
+           'Review': Review, 'State': State, 'Amenity': Amenity}
 
 
 class HBNBCommand(cmd.Cmd):
     """HBnB project command line interpreter"""
-    prompt = "(sbnb)"
+    prompt = "(sbnb) "
 
     def check_line(self, line):
         """Checks if line is missing a command"""
@@ -52,23 +62,34 @@ class HBNBCommand(cmd.Cmd):
             return command
 
     def do_EOF(self, *args):
-        """Handles EOF characther"""
+        """Handles EOF characther(Exits)"""
         print()
         return True
 
     def do_quit(self, line):
-        """ Handle request to quit interpreter"""
+        """Handle request to quit interpreter"""
         return True
 
+    def emptyline(self):
+        """Emptyline does nothing"""
+        pass
+
+    def do_help(self, args):
+        """Returns details on a command"""
+        cmd.Cmd.do_help(self, args)
+
     def do_create(self, line):
-        """Command to create an instance"""
-        self.check_line(line=line)
-        if line not in storage.classes():
-            print("** class doesn't exist **")
-        else:
-            sel_class = storage.classes()[line]()
-            sel_class.save()
+        """Creates an instance of Basemodel"""
+        args = shlex.split(line)
+        if len(args) == 0:
+            print("** class name missing **")
+        if args[0] in classes:
+            sel_class = classes[args[0]]()
             print(sel_class.id)
+            sel_class.save()
+        else:
+            print("** class doesn't exist **")
+            return (0)
 
     def do_destroy(self, line):
         """Deletes specified instance stored"""
@@ -87,9 +108,9 @@ class HBNBCommand(cmd.Cmd):
                 storage.save()
 
     def do_all(self, line):
-        """Prints all stored instances"""
+        """Prints all string format of stored instances"""
         if line != "":
-            words = line.split(' ')
+            words = shlex.split(line)
             if words[0] not in storage.classes():
                 print("** class doesn't exist **")
             else:
